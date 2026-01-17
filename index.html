@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>To-Do App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body> 
+      <button id="theme-toggle">
+    <img id="theme-icon" src="icons/dark-mode.png" alt="Toggle theme"/>
+</button>
+    <div class="app">
+        <h1>To-Do</h1>
+
+        <form id="todo-form">
+            <input
+            type="text"
+            id="todo-input"
+            placeholder="Add task"
+            required
+            />
+        <button type="submit">Add</button>
+        </form>
+        <ul id="todo-list"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
