@@ -27,13 +27,13 @@ This project was created as a learning exercise to understand how state, DOM man
 - **Vanilla JavaScript (ES6+)**
 - **localStorage**
 - 
-## 🚀 Getting Started
+## Getting Started
 
-### 1. Clone the repository
+## Clone the repository
 ```bash
 git clone https://github.com/Picard777/Todo-JavaScript.git
 ```
-Type:
+## Type:
 ```
 cd Todo-JavaScript
 ```
