@@ -23,6 +23,15 @@ themeToggle.addEventListener("click", () => {
     localStorage.setItem("theme", theme);
 });
 
+function createTodos(title) {
+    return {
+        id: crypto.randomUUID(),
+        title,
+        completed: false,
+        priority: 'medium',
+        createdAt: Date.now()
+    };
+}
 function saveTodos() {
     localStorage.setItem("todos", JSON.stringify(todos));
 }
@@ -30,22 +39,30 @@ function saveTodos() {
 form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const text = input.value.trim();
-    if (text === "") return;
-
-    const todo = {
-        id: Date.now(),
-        text: text,
-        completed: false,
-    };
-
+    const title = input.value.trim();
+    if (title === "") return;
+    const todo = createTodos(title);
     todos.push(todo);
     saveTodos();
     renderTodos();
 
     input.value = "";
 });
+function toggleTodo(id) {
+    todos = todos.map(function (todo) {
+        if (todo.id === id)
+            return { ...todo, completed: !todo.completed };
+        else return todo;
+    })
+    saveTodos();
+    renderTodos();
+};
 
+function deleteTodo(id) {
+    todos = todos.filter(todo => todo.id !== id);
+    saveTodos();
+    renderTodos();
+}
 function renderTodos() {
     list.innerHTML = "";
 
@@ -53,29 +70,26 @@ function renderTodos() {
         const li = document.createElement("li");
 
         const span = document.createElement("span");
-        span.textContent = todo.text;
+        span.textContent = todo.title;
 
         if (todo.completed) {
             span.classList.add("completed");
         }
         span.addEventListener("click", function () {
+            toggleTodo(todo.id);
             console.log("KLIK", todo.id);
-            todo.completed = !todo.completed;
-            saveTodos();
-            renderTodos()
         });
 
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("delete-btn");
         deleteBtn.textContent = "Delete";
         deleteBtn.addEventListener("click", function () {
-            todos = todos.filter(t => t.id !== todo.id);
-            saveTodos();
-            renderTodos();
+            deleteTodo(todo.id);
         });
+
         li.appendChild(span);
         li.appendChild(deleteBtn);
         list.appendChild(li);
     });
-}
+};
 renderTodos();
